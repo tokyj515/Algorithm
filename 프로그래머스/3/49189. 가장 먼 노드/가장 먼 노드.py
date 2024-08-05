@@ -2,9 +2,9 @@ from collections import deque
 
 
 def solution(n, edge):
-    graph = [[] for _ in range(n + 1)]
-    visited = [0] * (n + 1)
-    depth = [0] * (n + 1)
+    graph = [[] for _ in range(n+1)]
+    visited = [0 for _ in range(n+1)]
+    depth = [0 for _ in range(n+1)]
     queue = deque()
     cnt = 0
 
@@ -26,6 +26,9 @@ def solution(n, edge):
                 visited[i] = 1
                 depth[i] = depth[v] + 1
 
+    
+    print(depth)
+                
     max_depth = max(depth)
     for i in depth:
         if i == max_depth:
