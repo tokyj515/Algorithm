@@ -61,11 +61,16 @@ def backtrack(dep, r, c):
 
         graph[r][c] = -1
         answer.append([r, c])
-
-        backtrack(dep + 1, r-1, c)
-        backtrack(dep + 1, r, c+1)
-        backtrack(dep + 1, r, c-1)
-        backtrack(dep + 1, r+1, c)
+        
+        for i in range(4):
+            nx = r + dx[i]
+            ny = c + dy[i]
+            backtrack(dep+1, nx, ny)
+        # 
+        # backtrack(dep + 1, r-1, c)
+        # backtrack(dep + 1, r, c+1)
+        # backtrack(dep + 1, r, c-1)
+        # backtrack(dep + 1, r+1, c)
 
         # for i in range(4):
         #     nx = r + dx[i]
