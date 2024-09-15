@@ -1,64 +1,55 @@
 import copy
 
 def solution(begin, target, words):
-    result = 10000
+    
+    if target not in words:
+        return 0
+    
+    
+    result = []
+    answer = []
     visited = [0 for _ in range(len(words))]
 
-    answer = []
-    res = []
-
+    cnt = 100
+    
+    
     def can_change(now, word):
-        differ = 0
-        j = 0
-
-
-        while j < len(now):
-            if word[j] != now[j]:
-                differ += 1
-
-            j += 1
-        # print(f"now: {now},  word: {word} => {differ}")
-            
-        if differ == 1:
-            return True
-        else:
+        
+        cnt = 0
+        
+        for i, j in zip(now, word):
+            if i != j:
+                cnt += 1
+        
+        if cnt > 1:
             return False
-
-
-
-
+        return True
+    
+    
+    
     def backtrack(dep, now):
-
-        nonlocal result
-
-        if target not in words:
-            result = 0
-            return
-
-
+        nonlocal cnt
+        
         if now == target:
-            result = min(result, dep)
-
-#             temp = copy.deepcopy(answer)
-#             res.append(temp)
-
-#             print(now, target, dep, result, temp)
+            cnt = min(cnt, dep)
+            temp = answer[::]
+            result.append(temp)
+            # print(temp)
             return
-
-        for i, word in enumerate(words):
-            if can_change(now, word) and not visited[i]:
-                answer.append(word)
+        
+        
+        for i, w in enumerate(words):
+            if not visited[i] and can_change(now, w):
+                answer.append(w)
                 visited[i] = 1
-                backtrack(dep + 1, word)
-                visited[i] = 0
+                backtrack(dep+1, w)
                 answer.pop()
-
-
-
-
-    # can_change("hit")
-
-
+                visited[i] = 0
+        
+        
+        
+        
+        
     backtrack(0, begin)
     
-    return result
+    return cnt
