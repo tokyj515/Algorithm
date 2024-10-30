@@ -1,22 +1,22 @@
+
+
 import sys
 input = sys.stdin.readline
 
-
 n, k = map(int, input().split(" "))
-
-num = []
-dp = [0 for _ in range(k+1)]
-
+money = []
 for _ in range(n):
     temp = int(input())
-    num.append(temp)
+    money.append(temp)
 
+dp = [0 for _ in range(k+1)]
 dp[0] = 1
 
-for n in num:
-    for i in range(n, k+1):
-        dp[i] += dp[i-n]
-    # print(dp)
+
+for coin in money:
+
+    for i in range(coin, k+1):
+        dp[i] += dp[i-coin]
 
 
 print(dp[k])
