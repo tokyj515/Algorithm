@@ -1,4 +1,3 @@
-import copy
 
 def solution(begin, target, words):
     
@@ -6,50 +5,46 @@ def solution(begin, target, words):
         return 0
     
     
-    result = []
+    
     answer = []
+    result = []
     visited = [0 for _ in range(len(words))]
-
     cnt = 100
     
     
-    def can_change(now, word):
+    def can_change(a, b):
+        differ = 0
         
-        cnt = 0
-        
-        for i, j in zip(now, word):
+        for i, j in zip(a, b):
             if i != j:
-                cnt += 1
+                differ += 1
         
-        if cnt > 1:
-            return False
-        return True
+        return differ == 1
+        
+        
     
-    
-    
-    def backtrack(dep, now):
+    def backtrack(word, dep):
+        
         nonlocal cnt
         
-        if now == target:
-            cnt = min(cnt, dep)
+        if word == target:
             temp = answer[::]
             result.append(temp)
-            # print(temp)
+            cnt = min(cnt, dep)
             return
         
         
-        for i, w in enumerate(words):
-            if not visited[i] and can_change(now, w):
-                answer.append(w)
+        for i, next in enumerate(words):
+            if can_change(word, next) and not visited[i]:
                 visited[i] = 1
-                backtrack(dep+1, w)
-                answer.pop()
+                answer.append(next)
+                backtrack(next, dep+1)
                 visited[i] = 0
-        
-        
-        
-        
-        
-    backtrack(0, begin)
+                answer.pop()
+            
+    
+    backtrack(begin, 0)
+    
     
     return cnt
+    
