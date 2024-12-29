@@ -1,10 +1,10 @@
 # [level 3] 베스트앨범 - 42579 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42579?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42579?language=python3) 
 
 ### 성능 요약
 
-메모리: 75.9 MB, 시간: 1.25 ms
+메모리: 10.1 MB, 시간: 0.11 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 10월 26일 22:17:36
+2024년 12월 29일 19:07:20
 
 ### 문제 설명
 
