@@ -1,27 +1,27 @@
-
 import sys
 input = sys.stdin.readline
 
 from collections import defaultdict, deque
-from heapq import heappush, heappop
+from heapq import heappop, heappush
 
+N, M, X = map(int, input().split(" "))
 
-n, m, x = map(int, input().split(" "))
 
 graph = defaultdict(list)
 
+for _ in range(M):
+    u, v, w = map(int, input().split(" "))
+    graph[u].append((v, w))
 
-for _ in range(m):
-    u, v, c = map(int, input().split(" "))
-    graph[u].append((v, c))
+
 
 
 def dijkstra(start):
-    dist = [float('inf') for _ in range(n + 1)]
-    dist[start] = 0
-
     pq = []
-    pq.append((0, start))
+    dist = [float('inf') for _ in range(N + 1)]
+
+    dist[start] = 0
+    heappush(pq, (0, start))
 
     while pq:
         cur_dist, v = heappop(pq)
@@ -29,33 +29,22 @@ def dijkstra(start):
         if dist[v] < cur_dist:
             continue
 
-        for next, cost in graph[v]:
-            new_dist = cur_dist + cost
+        for next, w in graph[v]:
+            new_dist = cur_dist + w
 
-            if new_dist < dist[next]:
+            if dist[next] > new_dist:
                 dist[next] = new_dist
                 heappush(pq, (new_dist, next))
 
     return dist
 
-# x -> 나머지
-answer1 = dijkstra(x)
 
+go = dijkstra(X)
 
-# 나머지 -> x
-for i in range(1, n+1):
-    if i == x:
+for i in range(1, N+1):
+    if i == X:
         continue
+    come = dijkstra(i)
+    go[i] += come[X]
 
-    answer2 = dijkstra(i)
-    answer1[i] += answer2[x]
-
-
-print(max(answer1[1:]))
-
-
-
-
-
-
-
+print(max(go[1:]))
